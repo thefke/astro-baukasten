@@ -59,4 +59,4 @@ Wer die Website nicht baut, aber mit Claude pflegt, braucht andere Sätze. Dafü
 
 ## Lizenz
 
-Wird gerade festgelegt.
+MIT, siehe `LICENSE`. Du darfst alles nutzen, ändern und weitergeben, auch in Kundenprojekten. Die Lizenzdatei bleibt dabei.
