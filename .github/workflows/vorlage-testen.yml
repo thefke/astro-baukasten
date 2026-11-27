@@ -1,0 +1,32 @@
+# Testet die Vorlage bei jeder Änderung am Baukasten: Minimalprojekt, Vorlage hinein,
+# dieselben Befehle wie vorlage/.github/workflows/pruefen.yml, danach absichtliche Fehler.
+# Ablauf in tests/vorlage-testen.sh. Im öffentlichen Repo ohne Kosten.
+
+name: Vorlage testen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: vorlage-testen-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  testen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Vorlage wie ein neues Projekt testen
+        run: bash tests/vorlage-testen.sh "$RUNNER_TEMP/projekt"

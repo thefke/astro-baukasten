@@ -1,0 +1,46 @@
+# Prüft jeden Pull Request und jeden Push auf main, mit denselben Befehlen wie lokal:
+# npm run check (Typen, Build, Prüfskript) und npm run smoke (jede Seite im Browser).
+#
+# Damit Rot den Merge sperrt: in GitHub unter Settings, Rules, Rulesets eine Regel für
+# main anlegen und den Status-Check „pruefen“ verlangen.
+# Kosten: In öffentlichen Repos frei. In privaten Repos zählen die Minuten gegen das
+# Kontingent des Kontos.
+
+name: Prüfen
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pruefen-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  pruefen:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Pakete
+        run: npm ci
+
+      - name: Typen, Build und Prüfskript
+        run: npm run check
+
+      - name: Chromium für den Smoke-Test
+        run: npx playwright install --with-deps chromium
+
+      - name: Smoke-Test
+        run: npm run smoke
