@@ -38,12 +38,13 @@ Alles, was in dein Projekt gehört, liegt im Ordner `vorlage/`.
 
 ## Das Prüfskript
 
-`node scripts/pruefen.mjs` kennt vier Regeln:
+`node scripts/pruefen.mjs` kennt fünf Regeln:
 
 - Farben: Jede Hex-Farbe im Code muss als Token in `DESIGN.md` stehen, zwischen den Markierungen `<!-- pruefen:farben -->`.
 - Weiterleitungen: kein `Astro.redirect` in `src/`.
 - Schriften: keine Requests an Google Fonts. Schriften selbst hosten.
 - Gedankenstriche: kein Gedankenstrich als Einschub in Texten unter `src/content/` und `src/pages/`. Zitate, Seitentitel und Bis-Striche wie „10–12 Uhr“ bleiben erlaubt.
+- Links: Nach dem Build prüft das Skript in `dist/` jeden internen Link, jeden Anker und jede Zeile in `_redirects`. Es meldet Ziele, die es nicht gibt, fehlende Anker, relative Links, Weiterleitungen ins Leere und Weiterleitungen, die nie greifen, weil es für ihre Quelle eine Datei gibt. Weiterleitungen in `netlify.toml` prüft es nicht, dazu gibt es einen Hinweis. Ohne `dist/` wird die Regel übersprungen. Deshalb gehört sie hinter den Build: `npm run check`.
 
 Eine Regel abschalten: oben im Skript in `REGELN` auf `false` setzen. Eine Zeile ausnehmen: `pruefen:erlaubt` als Kommentar in dieselbe Zeile schreiben. Exit-Code 1 bei Befunden, so bricht `npm run check` ab, bevor etwas live geht.
 

@@ -32,6 +32,8 @@
 ## Astro
 
 - Feste Weiterleitungen in `netlify.toml` oder `public/_redirects`, nie mit `Astro.redirect`. Das baut eine Zwischenseite mit zwei Sekunden „Redirecting from …“.
+- Ändern sich Adressen, kommt jede alte Adresse als Weiterleitung in `public/_redirects`. `npm run check` prüft danach jeden Link und jede Weiterleitung. Nach dem Deploy die Weiterleitungen mit `curl -I` ansehen.
+- Seitenwechsel ohne Neuladen (`ClientRouter`) hat Folgen: Ein `is:inline`-Skript läuft nur beim ersten Aufruf, für jeden Seitenaufruf braucht es `data-astro-rerun`. Formulare mit normalem Absenden brauchen `data-astro-reload`. Ein eingebetteter Rahmen (iframe, etwa ein Player) überlebt den Wechsel nur mit eigenem Tausch des Seiteninhalts, siehe `lessons.md`.
 - Was beim Build feststeht, wird beim Build geholt. Nichts zur Laufzeit von fremden Servern laden, ohne den Datenschutz zu prüfen.
 - Zahlen und Listen, die sich ändern, stehen in `src/data/`, nie von Hand im Text.
 - Jede Seite nutzt ein Layout aus `src/layouts/`. Keine Seite baut eigene Navigation oder eigenen Footer.
