@@ -33,7 +33,7 @@ Was nur Kunde oder Team beantworten kann, kommt nach `fragen.md`: je Frage Konte
 
 ## 5. Prüfen und auf main
 
-1. `npm run check`. Ist es rot: nicht mergen, den Befund in der Übergabe nennen.
+1. `npm run check`, danach `npm run smoke`. Ist eins rot: nicht mergen, den Befund in der Übergabe nennen.
 2. Commit mit einer Nachricht, die sagt, was und warum. Push.
 3. Pull Request anlegen. Mergen, wenn <Regel: wer darf was mergen>. Sonst den Link zum Pull Request nennen und warten.
 4. Kein Branch bleibt nach der Session ohne Pull Request und ohne Grund offen.

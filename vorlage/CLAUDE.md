@@ -11,7 +11,7 @@
 ## Stack
 
 - Astro, statisch, Ausgabe `dist/`. <Tailwind ja oder nein>. Hosting: <Netlify oder anderes>.
-- Befehle: `npm run dev` (Vorschau lokal), `npm run build`, `npm run check` (Build und Prüfskript).
+- Befehle: `npm run dev` (Vorschau lokal), `npm run build`, `npm run check` (Typen, Build und Prüfskript), `npm run smoke` (nach dem Build jede Seite im Browser).
 - Keine neuen Pakete ohne Rückfrage.
 
 ## Ablauf je Session
@@ -19,7 +19,7 @@
 1. Eine Session, eine Funktion. Neue Funktion, neuer Chat.
 2. Zuerst lesen: diese Datei, `DESIGN.md`, `lessons.md` (alle Einträge mit Status `offen` oder `bestätigt`), `fragen.md`.
 3. Jede Session arbeitet auf einem eigenen Branch, nie direkt auf `main`.
-4. Vor jedem Commit: `npm run check`. Rot heißt: nicht mergen.
+4. Vor jedem Commit: `npm run check`. Vor dem Pull Request zusätzlich `npm run smoke`. Die Action `.github/workflows/pruefen.yml` prüft jeden Pull Request mit denselben Befehlen. Rot heißt: nicht mergen.
 5. Am Ende Skill `abschluss`. Danach liegt alles, was gelten soll, auf `main`.
 
 ## Deploys
@@ -59,6 +59,8 @@
 - `src/`, `public/`: die Website
 - `DESIGN.md`, `lessons.md`, `fragen.md`: Projektwissen
 - `scripts/pruefen.mjs`: macht Regeln zu Prüfungen
+- `scripts/smoke.mjs`: öffnet nach dem Build jede Seite im Browser
+- `.github/workflows/pruefen.yml`: prüft jeden Pull Request
 - `.claude/skills/`: wiederkehrende Abläufe als Skill
 
 ## Änderungen an dieser Datei
